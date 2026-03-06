@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, RotateCcw, Info, Settings, MessageCircle, BookOpen } from 'lucide-react';
+import { Play, Pause, RotateCcw, Info, Settings, MessageCircle, BookOpen, AlertTriangle } from 'lucide-react';
 
 export default function App() {
   const [aaa, setAaa] = useState(15);
@@ -72,6 +71,30 @@ export default function App() {
 
   const { fase, isAdmOpen, isEscOpen } = getFaseActual();
 
+  const getWarnings = () => {
+    const warnings = [];
+    if (solapo > 40) {
+      warnings.push("⚠️ Alto Solapo (>40°): Riesgo mecánico de choque entre válvulas y pistón. Ralentí extremadamente inestable y pérdida de vacío.");
+    } else if (solapo > 25) {
+      warnings.push("🔸 Solapo Deportivo (>25°): Configuración racing. Ralentí inestable pero excelente rendimiento en altas RPM.");
+    }
+
+    if (rce > 30) {
+      warnings.push("⚠️ RCE Peligroso (>30°): Riesgo de quemar la válvula de escape y retorno de gases al colector de admisión.");
+    }
+
+    if (rca > 65) {
+      warnings.push("⚠️ RCA Excesivo (>65°): Pérdida drástica de compresión inicial (reflujo) a bajas RPM. Motor 'muerto' en baja.");
+    }
+
+    if (warnings.length === 0) {
+      warnings.push("✅ Configuración Segura: Ángulos dentro de lo normal para calle o uso moderado. Sin riesgos inminentes de daños.");
+    }
+    return warnings;
+  };
+
+  const hazards = getWarnings();
+
   const cx = 200;
   const cy = 200;
   const radPrincipal = 130;
@@ -136,9 +159,12 @@ export default function App() {
                   <label className="font-semibold text-blue-700 flex items-center" title="Apertura Adelantada de Admisión">
                     AAA <span className="text-xs font-normal text-slate-500 ml-2">(Antes PMS)</span>
                   </label>
-                  <span className="font-mono bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">{aaa}°</span>
+                  <div className="flex items-center">
+                    <input type="number" min="0" max="90" value={aaa} onChange={(e) => setAaa(Number(e.target.value))} className="w-16 font-mono bg-blue-50 text-blue-800 border border-blue-200 px-2 py-1 rounded text-sm text-right focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <span className="text-blue-800 text-sm ml-1 font-mono">°</span>
+                  </div>
                 </div>
-                <input type="range" min="0" max="90" step="1" value={aaa} onChange={(e) => setAaa(parseInt(e.target.value, 10))} onInput={(e) => setAaa(parseInt(e.target.value, 10))} className="w-full h-2 cursor-pointer accent-blue-600" />
+                <input type="range" min="0" max="90" step="1" value={aaa} onChange={(e) => setAaa(Number(e.target.value))} onInput={(e) => setAaa(Number(e.target.value))} className="w-full h-2 cursor-pointer accent-blue-600" />
               </div>
 
               {/* Input RCA */}
@@ -147,9 +173,12 @@ export default function App() {
                   <label className="font-semibold text-blue-700 flex items-center" title="Retraso al Cierre de Admisión">
                     RCA <span className="text-xs font-normal text-slate-500 ml-2">(Después PMI)</span>
                   </label>
-                  <span className="font-mono bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">{rca}°</span>
+                  <div className="flex items-center">
+                    <input type="number" min="0" max="90" value={rca} onChange={(e) => setRca(Number(e.target.value))} className="w-16 font-mono bg-blue-50 text-blue-800 border border-blue-200 px-2 py-1 rounded text-sm text-right focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <span className="text-blue-800 text-sm ml-1 font-mono">°</span>
+                  </div>
                 </div>
-                <input type="range" min="0" max="90" step="1" value={rca} onChange={(e) => setRca(parseInt(e.target.value, 10))} onInput={(e) => setRca(parseInt(e.target.value, 10))} className="w-full h-2 cursor-pointer accent-blue-600" />
+                <input type="range" min="0" max="90" step="1" value={rca} onChange={(e) => setRca(Number(e.target.value))} onInput={(e) => setRca(Number(e.target.value))} className="w-full h-2 cursor-pointer accent-blue-600" />
               </div>
 
               <div className="border-t border-slate-100 my-4"></div>
@@ -160,9 +189,12 @@ export default function App() {
                   <label className="font-semibold text-red-700 flex items-center" title="Apertura Adelantada de Escape">
                     AAE <span className="text-xs font-normal text-slate-500 ml-2">(Antes PMI)</span>
                   </label>
-                  <span className="font-mono bg-red-100 text-red-800 px-2 py-1 rounded text-sm">{aae}°</span>
+                  <div className="flex items-center">
+                    <input type="number" min="0" max="90" value={aae} onChange={(e) => setAae(Number(e.target.value))} className="w-16 font-mono bg-red-50 text-red-800 border border-red-200 px-2 py-1 rounded text-sm text-right focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    <span className="text-red-800 text-sm ml-1 font-mono">°</span>
+                  </div>
                 </div>
-                <input type="range" min="0" max="90" step="1" value={aae} onChange={(e) => setAae(parseInt(e.target.value, 10))} onInput={(e) => setAae(parseInt(e.target.value, 10))} className="w-full h-2 cursor-pointer accent-red-600" />
+                <input type="range" min="0" max="90" step="1" value={aae} onChange={(e) => setAae(Number(e.target.value))} onInput={(e) => setAae(Number(e.target.value))} className="w-full h-2 cursor-pointer accent-red-600" />
               </div>
 
               {/* Input RCE */}
@@ -171,9 +203,12 @@ export default function App() {
                   <label className="font-semibold text-red-700 flex items-center" title="Retraso al Cierre de Escape">
                     RCE <span className="text-xs font-normal text-slate-500 ml-2">(Después PMS)</span>
                   </label>
-                  <span className="font-mono bg-red-100 text-red-800 px-2 py-1 rounded text-sm">{rce}°</span>
+                  <div className="flex items-center">
+                    <input type="number" min="0" max="90" value={rce} onChange={(e) => setRce(Number(e.target.value))} className="w-16 font-mono bg-red-50 text-red-800 border border-red-200 px-2 py-1 rounded text-sm text-right focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    <span className="text-red-800 text-sm ml-1 font-mono">°</span>
+                  </div>
                 </div>
-                <input type="range" min="0" max="90" step="1" value={rce} onChange={(e) => setRce(parseInt(e.target.value, 10))} onInput={(e) => setRce(parseInt(e.target.value, 10))} className="w-full h-2 cursor-pointer accent-red-600" />
+                <input type="range" min="0" max="90" step="1" value={rce} onChange={(e) => setRce(Number(e.target.value))} onInput={(e) => setRce(Number(e.target.value))} className="w-full h-2 cursor-pointer accent-red-600" />
               </div>
             </div>
           </div>
@@ -209,6 +244,20 @@ export default function App() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* ANALIZADOR DE PELIGROS */}
+          <div className="bg-amber-50 p-6 rounded-2xl shadow-sm border border-amber-200">
+            <h2 className="text-xl font-bold mb-4 flex items-center border-b border-amber-200 pb-2 text-amber-900">
+              <AlertTriangle className="mr-2 w-5 h-5 text-amber-600" /> Prevención de Daños
+            </h2>
+            <ul className="space-y-3">
+              {hazards.map((hazard, index) => (
+                <li key={index} className="text-sm text-amber-900 bg-white p-3 rounded shadow-sm border border-amber-100">
+                  {hazard}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
