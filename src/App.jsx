@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, Info, Settings, MessageCircle, BookOpen, AlertTriangle } from 'lucide-react';
 
 export default function App() {
