@@ -88,10 +88,10 @@ export default function App() {
         <p className="text-slate-600">Herramienta interactiva para calcular y graficar el ciclo teórico y práctico de motores de 4 tiempos.</p>
       </header>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
 
         {/* PANEL IZQUIERDO: CONTROLES Y CÁLCULOS */}
-        <div className="lg:col-span-12 md:col-span-12 lg:col-span-5 space-y-6">
+        <div className="col-span-1 lg:col-span-5 space-y-6">
 
           {/* Tarjeta de Ingreso de Datos */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
@@ -108,7 +108,7 @@ export default function App() {
                   </label>
                   <span className="font-mono bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">{aaa}°</span>
                 </div>
-                <input type="range" min="0" max="90" value={aaa} onChange={(e) => setAaa(Number(e.target.value))} className="w-full accent-blue-600" />
+                <input type="range" min="0" max="90" value={aaa} onChange={(e) => setAaa(Number(e.target.value))} onInput={(e) => setAaa(Number(e.target.value))} className="w-full h-2 cursor-pointer accent-blue-600" />
               </div>
 
               {/* Input RCA */}
@@ -119,7 +119,7 @@ export default function App() {
                   </label>
                   <span className="font-mono bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">{rca}°</span>
                 </div>
-                <input type="range" min="0" max="90" value={rca} onChange={(e) => setRca(Number(e.target.value))} className="w-full accent-blue-600" />
+                <input type="range" min="0" max="90" value={rca} onChange={(e) => setRca(Number(e.target.value))} onInput={(e) => setRca(Number(e.target.value))} className="w-full h-2 cursor-pointer accent-blue-600" />
               </div>
 
               <div className="border-t border-slate-100 my-4"></div>
@@ -132,7 +132,7 @@ export default function App() {
                   </label>
                   <span className="font-mono bg-red-100 text-red-800 px-2 py-1 rounded text-sm">{aae}°</span>
                 </div>
-                <input type="range" min="0" max="90" value={aae} onChange={(e) => setAae(Number(e.target.value))} className="w-full accent-red-600" />
+                <input type="range" min="0" max="90" value={aae} onChange={(e) => setAae(Number(e.target.value))} onInput={(e) => setAae(Number(e.target.value))} className="w-full h-2 cursor-pointer accent-red-600" />
               </div>
 
               {/* Input RCE */}
@@ -143,7 +143,7 @@ export default function App() {
                   </label>
                   <span className="font-mono bg-red-100 text-red-800 px-2 py-1 rounded text-sm">{rce}°</span>
                 </div>
-                <input type="range" min="0" max="90" value={rce} onChange={(e) => setRce(Number(e.target.value))} className="w-full accent-red-600" />
+                <input type="range" min="0" max="90" value={rce} onChange={(e) => setRce(Number(e.target.value))} onInput={(e) => setRce(Number(e.target.value))} className="w-full h-2 cursor-pointer accent-red-600" />
               </div>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default function App() {
         </div>
 
         {/* PANEL DERECHO: GRÁFICA Y ANIMACIÓN */}
-        <div className="lg:col-span-7 flex flex-col space-y-6">
+        <div className="col-span-1 lg:col-span-7 flex flex-col space-y-6">
 
           <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-200 flex-grow flex flex-col items-center justify-center relative">
 

@@ -1,16 +1,33 @@
-# React + Vite
+# Diagrama de Distribución de Válvulas 🚗⚙️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Vercel Status](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](https://diagrama-valvulas.vercel.app/)
 
-Currently, two official plugins are available:
+Herramienta interactiva para calcular y graficar el ciclo teórico y práctico de distribución de válvulas en motores de 4 tiempos. Desarrollada para facilitar los ejercicios de mecánica automotriz y el entendimiento dinámico del motor.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Accesibilidad
+Puedes ver la herramienta en vivo aquí: **[Diagrama de Válvulas (Vercel)](https://diagrama-valvulas.vercel.app/)**
 
-## React Compiler
+## ✨ Características
+- **Representación Visual en Tiempo Real:** Gráfico SVG dinámico que muestra el traslape (cruce de válvulas), apertura adelantada y retrasos de cierre.
+- **Cálculo Automático (Cuaderno):** Muestra de forma interactiva las operaciones matemáticas para duración de admisión, duración de escape y solapamiento.
+- **Simulador Animado:** Visualiza el ciclo completo de 720° del cigüeñal con el estado de apertura/cierre de la válvula de admisión y escape etapa por etapa.
+- **Glosario Integrado:** Términos de fácil acceso para estudiantes.
+- **Diseño Responsivo:** Completamente optimizado para celulares, tablets y escritorio.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tecnologías
+- [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- [Lucide React](https://lucide.dev/) (iconografía)
 
-## Expanding the ESLint configuration
+## 🚀 Instalación Local
+Si deseas descargar y probar el código en tu propia máquina:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+git clone https://github.com/javier20dev25/diagrama-valvulas.git
+cd diagrama-valvulas
+npm install
+npm run dev
+```
+
+## 📩 Contacto
+Desarrollado por **Javier Astaroth**. Creado para ayudar en el aprendizaje de ingeniería mecánica y mecánica automotriz.
