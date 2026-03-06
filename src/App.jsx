@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Play, Pause, RotateCcw, Info, Settings, MessageCircle, BookOpen, AlertTriangle } from 'lucide-react';
 
 export default function App() {
@@ -11,9 +11,13 @@ export default function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const requestRef = useRef();
 
-  const duracionAdmision = aaa + 180 + rca;
-  const duracionEscape = aae + 180 + rce;
-  const solapo = aaa + rce;
+  const [lastUpdate, setLastUpdate] = useState(Date.now());
+
+  const duracionAdmision = useMemo(() => Number(aaa) + 180 + Number(rca), [aaa, rca]);
+  const duracionEscape = useMemo(() => Number(aae) + 180 + Number(rce), [aae, rce]);
+  const solapo = useMemo(() => Number(aaa) + Number(rce), [aaa, rce]);
+
+  const forceUpdate = () => setLastUpdate(Date.now());
 
   const animate = () => {
     setAnimAngle(prevAngle => {
@@ -216,32 +220,40 @@ export default function App() {
 
           {/* Tarjeta de Resultados (Fórmulas para el cuaderno) */}
           <div className="bg-slate-900 text-white p-6 rounded-2xl shadow-lg border border-slate-800">
-            <h2 className="text-xl font-bold mb-4 text-emerald-400 border-b border-slate-700 pb-2 flex items-center">
-              <BookOpen className="mr-2 w-5 h-5" /> Resultados Cuaderno
-            </h2>
+            <div className="flex justify-between items-center mb-4 border-b border-slate-700 pb-2">
+              <h2 className="text-xl font-bold text-emerald-400 flex items-center">
+                <BookOpen className="mr-2 w-5 h-5" /> Resultados Cuaderno
+              </h2>
+              <button
+                onClick={forceUpdate}
+                className="text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white px-2 py-1 rounded uppercase tracking-wider font-bold transition-all active:scale-95"
+              >
+                Actualizar / Montar
+              </button>
+            </div>
 
             <div className="space-y-4 font-mono text-sm md:text-base">
               <div>
                 <p className="text-blue-300 font-sans font-semibold mb-1">Duración Admisión:</p>
                 <div className="bg-slate-800 p-3 rounded flex flex-col">
                   <span className="text-slate-400 opacity-70">AAA + 180° + RCA</span>
-                  <span>{aaa}° + 180° + {rca}° = <strong className="text-white text-lg">{duracionAdmision}°</strong></span>
+                  <span key={`adm-${lastUpdate}`}>{aaa}° + 180° + {rca}° = <strong className="text-white text-lg">{duracionAdmision}°</strong></span>
                 </div>
               </div>
 
               <div>
                 <p className="text-red-300 font-sans font-semibold mb-1">Duración Escape:</p>
-                <div className="bg-slate-800 p-3 rounded flex flex-col">
+                <div className="bg-slate-800 p-3 rounded flex flex-col transition-all">
                   <span className="text-slate-400 opacity-70">AAE + 180° + RCE</span>
-                  <span>{aae}° + 180° + {rce}° = <strong className="text-white text-lg">{duracionEscape}°</strong></span>
+                  <span key={`esc-${lastUpdate}`}>{aae}° + 180° + {rce}° = <strong className="text-white text-lg">{duracionEscape}°</strong></span>
                 </div>
               </div>
 
               <div>
                 <p className="text-purple-300 font-sans font-semibold mb-1">Traslape / Solapo:</p>
-                <div className="bg-slate-800 p-3 rounded flex flex-col">
+                <div className="bg-slate-800 p-3 rounded flex flex-col transition-all">
                   <span className="text-slate-400 opacity-70">AAA + RCE</span>
-                  <span>{aaa}° + {rce}° = <strong className="text-white text-lg">{solapo}°</strong></span>
+                  <span key={`sol-${lastUpdate}`}>{aaa}° + {rce}° = <strong className="text-white text-lg">{solapo}°</strong></span>
                 </div>
               </div>
             </div>
